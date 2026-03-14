@@ -13,19 +13,19 @@ public abstract class ActionDecorator implements AttackAction {
 
     @Override
     public String getActionName() {
-        // TODO: Delegate to wrapped action, then extend if needed.
+        //Delegate to wrapped action, then extend if needed.
         return wrappedAction.getActionName();
     }
 
     @Override
     public int getDamage() {
-        // TODO: Delegate to wrapped action, then extend if needed.
+        //Delegate to wrapped action, then extend if needed.
         return wrappedAction.getDamage();
     }
 
     @Override
     public String getEffectSummary() {
-        // TODO: Delegate to wrapped action, then extend if needed.
+        //Delegate to wrapped action, then extend if needed.
         return wrappedAction.getEffectSummary();
     }
 }
