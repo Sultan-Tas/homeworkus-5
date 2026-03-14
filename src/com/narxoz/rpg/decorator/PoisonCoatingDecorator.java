@@ -14,7 +14,7 @@ public class PoisonCoatingDecorator extends ActionDecorator {
     @Override
     public int getDamage() {
         //Add poison-related behavior on top of wrapped damage.
-        return (int) Math.round(super.getDamage()*1.25);
+        return (int) Math.ceil(super.getDamage()*1.25);
     }
 
     @Override

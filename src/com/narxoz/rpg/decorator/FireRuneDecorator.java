@@ -14,7 +14,7 @@ public class FireRuneDecorator extends ActionDecorator {
     @Override
     public int getDamage() {
         //Add fire-related behavior on top of wrapped damage.
-        return (int) Math.round(super.getDamage()*1.5);
+        return (int) Math.ceil(super.getDamage()*1.5);
     }
 
     @Override

@@ -14,7 +14,7 @@ public class CriticalFocusDecorator extends ActionDecorator {
     @Override
     public int getDamage() {
         //Add critical-related behavior on top of wrapped damage.
-        return (int) Math.round(super.getDamage()*2.0);
+        return (int) Math.ceil(super.getDamage()*2.0);
     }
 
     @Override
