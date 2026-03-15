@@ -16,9 +16,9 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("=== Homework 5 Demo: Decorator + Facade ===\n");
 
-        // TODO: Create a hero and a boss with your own meaningful stats.
-        HeroProfile hero = new HeroProfile("Richard Lionheart", 100);
-        BossEnemy boss = new BossEnemy("Tax Collector", 120, 15);
+        //Create a hero and a boss with your own meaningful stats.
+        HeroProfile hero = new HeroProfile("Richard Lionheart", 100, 150);
+        BossEnemy boss = new BossEnemy("Tax Collector", 120, 30, 100);
 
         // Start with a base action and then create several decorated versions.
         AttackAction basic = new BasicAttack("Strike", 10);
@@ -57,10 +57,9 @@ public class Main {
                 "\n\tdamage: " + everything.getDamage() +
                 "\n\teffects: " + everything.getEffectSummary());
 
-        //Replace the placeholder preview above with richer proof of runtime composition.
 
         System.out.println("\n--- Facade Preview ---");
-        DungeonFacade facade = new DungeonFacade().setRandomSeed(42L);
+        DungeonFacade facade = new DungeonFacade().setRandomSeed(4L);
         AdventureResult result = facade.runAdventure(hero, boss, everything);
 
         System.out.println("Winner: " + result.getWinner());
@@ -69,12 +68,6 @@ public class Main {
         for (String line : result.getLog()) {
             System.out.println(line);
         }
-
-        // TODO: Expand this demo so it clearly proves:
-        // 1) multiple decorator combinations
-        // 2) one full dungeon run through the facade
-        // 3) readable final summary
-
         System.out.println("\n=== Demo Complete ===");
     }
 }

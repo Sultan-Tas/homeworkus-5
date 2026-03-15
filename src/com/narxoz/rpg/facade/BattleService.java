@@ -4,6 +4,8 @@ import com.narxoz.rpg.decorator.AttackAction;
 import com.narxoz.rpg.enemy.BossEnemy;
 import com.narxoz.rpg.hero.HeroProfile;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Random;
 
 public class BattleService {
@@ -15,23 +17,66 @@ public class BattleService {
     }
 
     public AdventureResult battle(HeroProfile hero, BossEnemy boss, AttackAction action) {
-        // TODO: Implement the battle flow.
+        // Implement the battle flow.
         // Questions to answer:
-        // - Who attacks first?
-        // - How many rounds are allowed?
-        // - How is damage resolved?
-        // - How will randomness affect the result, if at all?
+        // - Who attacks first? (determined by speed)
+        // - How many rounds are allowed? (10 cycles)
+        // - How is damage resolved? (basic reduction from health. No stuff like damage reduction)
+        // - How will randomness affect the result, if at all? (Crit. hits because crits are fair, but only for the player)
         AdventureResult result = new AdventureResult();
-        result.setWinner("TODO");
-        result.setRounds(0);
-        result.setReward("TODO");
-        result.addLine("TODO: implement battle logic");
+        //AV = Action Value
+        int heroAV = 10000/ hero.getSpeed();
+        int bossAV = 10000/ boss.getSpeed();
+        int currentHeroAV = 0;
+        int currentBossAV = 0;
+        String currentMove = "";
 
-        // Keep the field in use so students can decide whether to rely on it.
-        if (random.nextInt(1) == 0) {
-            // TODO: Replace placeholder branch with real deterministic or random logic.
+        int roundThreshold = 0;
+        int round = 0;
+
+        while(hero.isAlive() && boss.isAlive()) {
+            if(currentHeroAV <= currentBossAV) {
+                currentMove = "hero";
+                currentHeroAV += heroAV;
+            }
+            else{
+                currentMove = "boss";
+                currentBossAV += bossAV;
+            }
+
+            if(currentHeroAV >= roundThreshold || currentBossAV >= roundThreshold) {
+                if(round != 0){
+                    roundThreshold += 100;
+                }
+                else{
+                    roundThreshold += 150;
+                }
+                round++;
+                result.addLine("Round " + round);
+            }
+            if(currentMove.equals("hero")) {
+                int DMG = action.getDamage();
+                if (random.nextInt(100) < 20) {
+                    DMG *= 2;
+                }
+                boss.takeDamage(DMG);
+                result.addLine("\t[" + hero.getName() + "] dealt " + DMG + " damage to ►" + boss.getName());
+            }
+            else{
+                int DMG = boss.getAttackPower();
+                hero.takeDamage(DMG);
+
+                result.addLine("\t[" + boss.getName() + "] dealt " + DMG + " damage to ►" + hero.getName());
+            }
         }
-
+        if(hero.isAlive()){
+            result.setWinner("Hero [" + hero.getName() + "] won!");
+        }
+        else{
+            result.setWinner("Boss [" + boss.getName() + "] won!");
+        }
+        result.setRounds(round);
+        result.addLine("Adventure ended...");
         return result;
     }
 }

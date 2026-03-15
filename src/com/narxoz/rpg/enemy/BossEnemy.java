@@ -4,11 +4,13 @@ public class BossEnemy {
     private final String name;
     private int health;
     private final int attackPower;
+    private int speed;
 
-    public BossEnemy(String name, int health, int attackPower) {
+    public BossEnemy(String name, int health, int attackPower, int speed) {
         this.name = name;
         this.health = health;
         this.attackPower = attackPower;
+        this.speed = speed;
     }
 
     public String getName() {
@@ -23,13 +25,15 @@ public class BossEnemy {
         return attackPower;
     }
 
+    public int getSpeed() {
+        return speed;
+    }
+
     public void takeDamage(int amount) {
-        // TODO: Decide how boss damage should be applied and clamped.
         health -= amount;
     }
 
     public boolean isAlive() {
-        // TODO: Decide whether additional boss states belong here.
         return health > 0;
     }
 }
